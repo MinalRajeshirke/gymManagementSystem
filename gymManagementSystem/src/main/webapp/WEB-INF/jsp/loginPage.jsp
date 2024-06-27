@@ -20,6 +20,7 @@
                 Enter Username: <input type="text" name="username" placeholder="Username" required/>
                 <br />
                 Enter Password: <input type="password" name="password" placeholder="Password" required/>
+                
                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 <br />
                 <input type="submit" value="Submit" />
