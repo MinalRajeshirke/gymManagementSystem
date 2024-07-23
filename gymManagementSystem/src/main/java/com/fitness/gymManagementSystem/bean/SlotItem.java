@@ -44,7 +44,7 @@ public class SlotItem {
 	}
 
 
-	public void setSeatAvailable(Integer seatBooked) {
+	public void setSeatBooked(Integer seatBooked) {
 		this.seatBooked = seatBooked;
 	}
 	

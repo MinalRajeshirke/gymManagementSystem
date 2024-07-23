@@ -10,6 +10,9 @@
 <style type="text/css">
 <%@ include file="/WEB-INF/css/slotBookPage.css" %>
 </style>
+<script type="text/javascript">
+<%@include file="/WEB-INF/js/slotBookPage2.js" %>
+</script>
 </head>
 <body>
 <div class="container">
@@ -31,8 +34,7 @@
     <div class="form-container">
         <form:form action="/slot-book" method="post" modelAttribute="gymBookRecord">
             <input type="hidden" value="${slot.slotId}" name="slot_id"/>
-            <input type="hidden" value="${user.username}" name="username"/>
-            <input type="hidden" value="${gymBookRecord.bookingId}" name="bookingId"/>
+            <input type="hidden" value="${userId}" name="userId"/>
             <table>
                 <tr>
                     <th>Item No</th>
@@ -52,7 +54,7 @@
                 </c:forEach>
             </table>
             <div class="button-container">
-                <button type="submit">Book</button>
+                <button id="submit-button" type="submit">Book</button>
                 <a href="/index"><button type="button">Return</button></a>
             </div>
         </form:form>
