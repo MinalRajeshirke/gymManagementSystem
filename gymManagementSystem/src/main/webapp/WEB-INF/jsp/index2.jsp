@@ -23,7 +23,7 @@
             <li><a href="/index" class="active">HOME</a></li>
             <li><a href="/slotreport">SLOT BOOKING</a></li>
             <li><a href="/booked">BOOKED SLOTS</a></li>
-            <li><a href="#">FEEDBACK</a></li>
+            <li><a href="/feedback">FEEDBACK</a></li>
             <li><a href="/logout">LOGOUT</a></li>
         </ul>
     </div>
@@ -33,5 +33,8 @@
     <!--<footer>
     <p>&copy; 2024 Online Gym Management System. All rights are reserved</p>
     </footer>-->
+    <footer>
+     Copyright © 2024 Infosys Interns Fitness Club. All Rights Reserved
+    </footer>
 </body>
 </html>

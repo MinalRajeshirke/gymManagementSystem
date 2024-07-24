@@ -41,7 +41,6 @@ public class GymBookDaoImpl implements GymBookDao {
 
 	@Override
 	public GymBook findBookInfoById(Long id) {
-		// TODO Auto-generated method stub
 		return repository.findById(id).get();
 	}
 	@Override
@@ -52,12 +51,12 @@ public class GymBookDaoImpl implements GymBookDao {
 	public List<GymBook> getEntitiesByUsername(String username){
 		return repository.findByUsername(username);
 	}
-	
 	@Override
-	public List<GymBook> findBySlotIdAndUsername(Long slotId, String username){
-		return repository.findBySlotIdAndUsername(slotId,username);
-		
+	public List<GymBook> findBySlotIdAndUsername(Long id,String username){
+		return repository.findBySlotIdAndUsername(id,username);
 	}
-	
-
+	@Override
+	public Long findItemId(Long bookingId) {
+		return repository.findItemId(bookingId);
+	}
 }
