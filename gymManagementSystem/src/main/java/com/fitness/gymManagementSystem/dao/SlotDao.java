@@ -8,7 +8,6 @@ public interface SlotDao {
 	public void saveNewSlot(Slot slot);
 	public List<Slot> displayAllSlot();
 	public Slot findSlotById(Long id);
-
 	Long generateSlotId();
 	
 }

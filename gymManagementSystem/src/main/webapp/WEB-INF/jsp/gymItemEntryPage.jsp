@@ -12,43 +12,44 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Manage Exercises</h1>
-        <form:form id="trainer-page" action="/gymitem" method="post" modelAttribute="itemRecord">
-            <div>
-                <label for="itemName">Exercise Name:</label>
-                <form:input path="itemName" required="required"/>
-            </div>
-            <form:hidden path="itemId"/>
-            <div>
-                <label for="totalSeat">Total Seat:</label>
-                <form:input path="totalSeat" required="required"/>
-            </div>
-            <button type="submit">Add Exercise</button>
-            <br/>
-            <button type="reset">Reset</button>
-            <br/>
-            <a href="/index" ><button type="button">Return</button></a>
-        </form:form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item Id</th>
-                    <th>Item Name</th>
-                    <th>Total Seat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="item" items="${itemList}">
-                    <tr>
-                        <td>${item.itemId}</td>
-                        <td>${item.itemName}</td>
-                        <td>${item.totalSeat}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        
-    </div>
+	<div class="container">
+		<h1>Manage Exercises</h1>
+		<form:form id="trainer-page" action="/gymitem" method="post"
+			modelAttribute="itemRecord">
+			<div>
+				<label for="itemName">Exercise Name:</label>
+				<form:input path="itemName" required="required" />
+			</div>
+			<form:hidden path="itemId" />
+			<div>
+				<label for="totalSeat">Total Seat:</label>
+				<form:input path="totalSeat" required="required" />
+			</div>
+			<button type="submit">Add Exercise</button>
+			<br />
+			<button type="reset">Reset</button>
+			<br />
+			<a href="/index"><button type="button">Return</button></a>
+		</form:form>
+		<table>
+			<thead>
+				<tr>
+					<th>Item Id</th>
+					<th>Item Name</th>
+					<th>Total Seat</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="item" items="${itemList}">
+					<tr>
+						<td>${item.itemId}</td>
+						<td>${item.itemName}</td>
+						<td>${item.totalSeat}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+	</div>
 </body>
 </html>
