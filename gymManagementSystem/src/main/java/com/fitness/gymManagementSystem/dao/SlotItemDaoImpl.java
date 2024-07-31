@@ -39,5 +39,10 @@ public class SlotItemDaoImpl implements SlotItemDao {
 	public Set<SlotItemEmbed> findAllEmbeds(){
 		return repository.findAllEmbeds();
 	}
+	
+	@Override
+	public boolean isItemIdAvailable(Long itemId) {
+		return repository.existsByItemId(itemId);
+	}
 
 }

@@ -182,43 +182,7 @@ public class GymController {
     	}
     	return mv;
     }
-    @PostMapping("/slot-book")
-    public ModelAndView saveSlotBookPage(@RequestParam("slot_id") Long slotId,@RequestParam("selectItem") Long itemId,@RequestParam("userId") String userId) {
-    	String userType=userService.getType();
-    	String username="";
-        if (userId != null && !userId.isEmpty()) {
-        	if(userType.equalsIgnoreCase("Admin")) {
-        		username=userId;
-        	}
-        } else {
-        	username=userService.getUser().getUsername();
-        }
-        List<GymBook> book=gymBookDao.findBySlotIdAndUsername(slotId,username);
-        if(book.isEmpty()) {
-        	GymItem gymItem=gymItemDao.findItemById(itemId);
-        	SlotItemEmbed embed=new SlotItemEmbed(slotId,itemId);
-        	int totalSeat=gymItem.getTotalSeat();
-        	SlotItem slotItem=slotItemDao.findItemById(embed);
-        	int seatBooked=slotItemDao.findSeatBookedById(embed);
-        	int available=totalSeat-seatBooked;
-        	GymBook gymBook=null;
-        	if(available>0) {
-        		long bookingId=gymBookDao.generateBookingid();
-        		seatBooked++;
-        		slotItem.setSeatBooked(seatBooked);
-        		gymBook=new GymBook(bookingId,slotId,itemId,username);
-        		gymBookDao.save(gymBook);
-        		slotItemDao.save(slotItem);
-        	}
-        	else {
-        		throw new OperatorException("Seat Not Available");
-        	}
-        	 return new ModelAndView("redirect:/book-success/" + gymBook.getBookingId());
-        }
-        else {
-        	throw new OperatorException("You have booked slot in this timing  change the slot or cancel your booking");
-        }
-    }
+    
     @GetMapping("/book-success/{bookingId}")
     public ModelAndView showSuccessPage(@PathVariable Long bookingId) {
         GymBook booking = gymBookDao.findBookInfoById(bookingId);
@@ -239,6 +203,49 @@ public class GymController {
     		throw new OperatorException("No Slots available");
     	}
     }
+    @PostMapping("/slot-book")
+    public ModelAndView saveSlotBookPage(@RequestParam("slot_id") Long slotId,@RequestParam("selectItem") Long itemId,@RequestParam("userId") String userId) {
+    	String userType=userService.getType();
+    	String username="";
+        if (userId != null && !userId.isEmpty()) {
+        	if(userType.equalsIgnoreCase("Admin")) {
+        		username=userId;
+        	}
+        } else {
+        	username=userService.getUser().getUsername();
+        }
+        List<GymBook> book=gymBookDao.findBySlotIdAndUsername(slotId,username);
+        boolean isItemAvailable = slotItemDao.isItemIdAvailable(itemId);
+        if(book.isEmpty()) {
+        	if (isItemAvailable) {
+                GymItem gymItem = gymItemDao.findItemById(itemId);
+                SlotItemEmbed embed = new SlotItemEmbed(slotId, itemId);
+                int totalSeat = gymItem.getTotalSeat();
+                SlotItem slotItem = slotItemDao.findItemById(embed);
+                int seatBooked = slotItemDao.findSeatBookedById(embed);
+                int available = totalSeat - seatBooked;
+
+                if (available > 0) {
+                    long bookingId = gymBookDao.generateBookingid();
+                    seatBooked++;
+                    slotItem.setSeatBooked(seatBooked);
+                    GymBook gymBook = new GymBook(bookingId, slotId, itemId, username);
+                    gymBookDao.save(gymBook);
+                    slotItemDao.save(slotItem);
+
+                    return new ModelAndView("redirect:/book-success/" + gymBook.getBookingId());
+                } else {
+                    throw new OperatorException("Seat Not Available");
+                }
+            } else {
+                throw new OperatorException("Gym Item is not added to slot");
+            }
+        }
+        else {
+        	throw new OperatorException("You have booked slot in this timing  change the slot or cancel your booking");
+        }
+    }
+    
     @GetMapping("/booked")
     public ModelAndView showBookingPage() {
     	String username="";
